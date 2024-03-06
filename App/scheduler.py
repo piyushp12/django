@@ -12,9 +12,9 @@ max_instances = 200
 scheduler=BackgroundScheduler()
 
 def send_data_to_socket():
-    data = BrakerScreener.objects.all()
+    data = BrakerScreener.objects.filter()[:50]
     serializer = BrakerScreenerSerializerData(data, many=True)
-    divergencs=DivergenceScreener.objects.all()
+    divergencs=DivergenceScreener.objects.filter()[:50]
     divergence_data=DivergenceScreenerSerializerData(divergencs, many=True)
     async_to_sync(channel_layer.group_send)(
         "braker_data",  
