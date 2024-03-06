@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enter OTP</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section class="vh-100 gradient-custom">
+      <div class="container py-4 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <div class="card bg-dark text-white" style="border-radius: 1rem">
+              <div class="card-body p-4 text-center">
+                <div class="mb-md-4 mt-md-3 pb-4">
+                  <h2 class="fw-bold mb-2 text-uppercase">Enter OTP</h2>
+                  <p class="text-white-50 mb-4">
+                    Please enter the 4-digit OTP sent to your email.
+                  </p>
+
+                  <div class="form-group d-flex justify-content-center">
+                    <input
+                      type="text"
+                      id="otpInput1"
+                      class="form-control form-control-lg mx-2"
+                      maxlength="1"
+                      required
+                      oninput="handleInput(1)"
+                    />
+                    <input
+                      type="text"
+                      id="otpInput2"
+                      class="form-control form-control-lg mx-2"
+                      maxlength="1"
+                      required
+                      oninput="handleInput(2)"
+                    />
+                    <input
+                      type="text"
+                      id="otpInput3"
+                      class="form-control form-control-lg mx-2"
+                      maxlength="1"
+                      required
+                      oninput="handleInput(3)"
+                    />
+                    <input
+                      type="text"
+                      id="otpInput4"
+                      class="form-control form-control-lg mx-2"
+                      maxlength="1"
+                      required
+                      oninput="handleInput(4)"
+                    />
+                  </div>
+
+                  <button
+                    class="btn btn-outline-light btn-lg px-5"
+                    type="button"
+                    onclick="validateOTP()"
+                  >
+                    Submit
+                  </button>
+                </div>
+
+                <div>
+                  <p class="mb-0">
+                    Didn't receive OTP?
+                    <a href="#!" class="text-white-50 fw-bold">Resend OTP</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      function handleInput(fieldNumber) {
+        var currentInput = document.getElementById(`otpInput${fieldNumber}`);
+        var nextInput = document.getElementById(`otpInput${fieldNumber + 1}`);
+        var prevInput = document.getElementById(`otpInput${fieldNumber - 1}`);
+
+        if (currentInput.value !== "" && !isNaN(currentInput.value)) {
+          if (currentInput.value.length > 1) {
+            currentInput.value = currentInput.value.slice(0, 1);
+          }
+
+          if (fieldNumber < 4) {
+            nextInput.focus();
+          }
+        } else if (currentInput.value === "") {
+          if (fieldNumber > 1) {
+            prevInput.focus();
+          }
+        } else {
+          currentInput.value = "";
+        }
+      }
+
+      function validateOTP() {
+        var otpInput1 = document.getElementById("otpInput1");
+        var otpInput2 = document.getElementById("otpInput2");
+        var otpInput3 = document.getElementById("otpInput3");
+        var otpInput4 = document.getElementById("otpInput4");
+
+        var otp =
+          otpInput1.value + otpInput2.value + otpInput3.value + otpInput4.value;
+
+        if (otp.length !== 4 || isNaN(otp)) {
+          alert("Please enter a valid 4-digit OTP.");
+        } else {
+          alert("OTP successfully validated!");
+          // Add logic for further processing here
+        }
+      }
+    </script>
+  </body>
+  <style>
+    body {
+      background-image: url("{% static "img/background_img.jpeg" %}");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+  </style>
+</html>

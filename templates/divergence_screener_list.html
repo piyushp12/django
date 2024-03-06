@@ -1,0 +1,511 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false">
+  <!-- <html lang="en" > -->
+  <head>
+    <title>Currency Exchange</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <style>
+    .main-container {
+      display: flex;
+      background-image: url('C:\Users\Admin\Downloads\django\django\App\static\bot_image\img\banner.jpg');"
+    }
+    .nav-item.screener {
+      color: white; /* Set the text color to white */
+      text-align: center;
+      flex-grow: 1;
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+    
+    .nav-item.screener:hover {
+      color: #fbbd18; /* Change the hover color as needed */
+    }
+    
+    .navbar-img {
+      width: 30px;
+      height: auto;
+      margin-left: 10px;
+    }
+    
+    @media (max-width: 767px) {
+      .navbar-nav {
+        flex-direction: column;
+      }
+      .navbar-img {
+        margin: 5px 0;
+      }
+    }
+    .container-fluid.main_container {
+      padding: 0; /* Remove default padding to make it full-width */
+    }
+    
+    .coinlogo {
+      width: 8%;
+    }
+    
+    
+    
+    .btn {
+      background-color: #fbbd18;
+    }
+    
+    .btn.btn-time {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    
+    
+    .card-title {
+      font-size: 18px;
+      text-align: center;
+      background: #f4a60a;
+      padding: 14px 0;
+      color: #000000;
+      margin-bottom: 30px;
+    }
+    
+    .card-deck {
+      position: relative;
+      justify-content: center;
+    }
+    
+    
+    .dropdown {
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Style for the dropdown button */
+    .dropdown-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* Dropdown menu styles */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .first-container {
+      flex: 9;
+      padding: 20px;
+    }
+
+    .second-container {
+      flex: 0.2;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+
+   
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      color:white;
+    }
+  
+    .btn:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #ffc107; /* Adjust the color as needed */
+      bottom: 0;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease;
+    }
+  
+    .btn:hover:after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    @media (max-width: 768px) {
+      /* CSS for small screens */
+      .duration-buttons {
+        display: none;
+      }
+  
+      .dropdown {
+        display: flex;
+      }
+    }
+
+
+    span{
+      font-size: 14px;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+    
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+   
+    .table td,
+    .table th {
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 14px;
+      
+    }
+    
+    .table th {
+      background-color:#f4a60a;
+      color: #ffffff;
+    }
+    
+    .table tbody tr {
+      background-color: transparent !important;
+      color: #ffffff;
+    }
+    
+    /*responsive*/
+
+
+
+        
+    @media (max-width: 500px) {
+      .table thead {
+        display: none;
+      }
+    
+      .table,
+      .table tbody,
+      .table tr,
+      .table td {
+        display: block;
+        width: 100%;
+      }
+      .table tr {
+        margin-bottom: 15px;
+      }
+      .table td {
+        padding-left: 50%;
+        text-align: left;
+        position: relative;
+      }
+      .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .divclass{
+        display:flex;
+        flex-direction: column !important;
+      }
+    }
+
+    img {
+      width: 2rem;
+    }
+  </style>
+  <body style="display: flex; background-image: url('{% static 'bot_image/img/banner.jpg' %}'); flex-direction: column">
+    <nav class="navbar navbar-expand-lg" style="background-color: transparent !important">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img style="width:60%;" src="{% static 'bot_image/img/logo.png' %}" alt="BEHD Image"> 
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active screener"></li>
+            <li class="nav-item screener">
+              <a class="nav-link" href="#" style="position: relative; color:#fff"
+                >DIVERGENCE SCREENER</a
+              >
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="margin-right:15px;">
+              <span style="display:flex; color:#fff">Hidden Divergence</span>
+                <img style="width: 50px; height: auto;" src="{% static 'bot_image/img/BEHD.png' %}" alt="BEHD Image">
+                <img style="width: 50px; height: auto;" src="{% static 'bot_image/img/BUHD.png' %}" alt="BUHD Image">
+            </li>
+            <li class="nav-item">
+              <span style="display:flex; color:#fff">Regular Divergence</span>
+                <img style="width: 50px; height: auto;" src="{% static 'bot_image/img/BERD.png' %}" alt="BERD Image">
+                <img style="width: 50px; height: auto;" src="{% static 'bot_image/img/BURD.png' %}" alt="BURD Image">
+            </li>
+        </ul>
+        
+        </div>
+      </div>
+    </nav>
+    <div class="main-container">
+      <div class="first-container container-fluid">
+        <div class="row">
+          <div class="col">
+            <div class="row g-6" id="cardsId">
+              <!-- For screens less than 478px -->
+              </div>
+              </div>
+            </div>
+            
+            <div class="container-div" style="width:100%;"> 
+              <!-- Filter form -->
+              <div class="duration d-flex justify-content-between align-items-center">
+                <div class="form-div d-flex">
+                    <input id="inputId" class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                    <button id="clearbtnID" type="button" class="btn btn-outline-warning my-2 my-sm-0" type="submit" style="width:75px;">Clear</button>
+              </div>
+              <div class="duration-buttons d-none d-md-block">
+                <a href="?interval=15m" class="btn btn-primary">15 min</a>
+                <a href="?interval=1h" class="btn btn-primary">1 hour</a>
+                <a href="?interval=4h" class="btn btn-primary">4 hours</a>
+                <a href="?interval=1d" class="btn btn-primary">1 day</a>
+                <a href="?interval=1w" class="btn btn-primary">1 week</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row divclass mt-3">
+    <div class="col col-lg-10">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Currency</th>
+                  <th>Current Price</th>
+                  <th>Time (UTC)</th>
+                  <th>RSI</th>
+                  <th>MACD + Histogram</th>
+                  <th>OBV</th>
+                  <th>CVD</th>
+                  <th>Stochastics</th>
+              </tr>
+          </thead>
+          <tbody id="divergenceTableId">
+
+          </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="col col-lg-2">
+      <table class="table table-dark table-hover" style="background-color: transparent">
+        <thead>
+          <tr>
+            <th scope="col">Currency List</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: transparent">
+          {% for i in all_pair %}
+          <tr style="background-color: transparent">
+            <td style="background-color: transparent">{{i.exchange}}</td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+
+    </div>
+    </div>
+
+   
+  </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+
+    document.onkeydown = (e) => {
+      if (e.key == 123) {
+          e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+          e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+          e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+          e.preventDefault();
+      }
+      if (e.ctrlKey && e.key == 'U') {
+          e.preventDefault();
+      }
+  };
+
+    $("#clearbtnID").click(() => $("#inputId").val(""))
+     
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      const buttons = document.querySelectorAll('.duration-buttons a');
+
+      function setActiveButton() {
+          const selectedInterval = localStorage.getItem('selectedInterval');
+          if (selectedInterval) {
+              buttons.forEach(button => {
+                  if (button.getAttribute('href') === `?interval=${selectedInterval}`) {
+                      button.classList.add('active');
+                  } else {
+                      button.classList.remove('active');
+                  }
+              });
+          }
+      }
+      // Set active button initially
+      setActiveButton();
+      // Event listener for button clicks
+      buttons.forEach(button => {
+          button.addEventListener('click', function(event) {
+              buttons.forEach(btn => btn.classList.remove('active'));
+              this.classList.add('active');
+              const intervalValue = this.getAttribute('href').split('=')[1];
+              localStorage.setItem('selectedInterval', intervalValue);
+          });
+      });
+  });
+
+    const websocketConnection = () => {
+      const currentFilter = window.location.href?.split("?")?.[1]?.split("=")?.[1] ? window.location.href.split("?")?.[1]?.split("=")?.[1] : "15m"; 
+      console.log("currentFilter", currentFilter)
+      const socket = new WebSocket(`ws://${window.location.host}/arpit-lodu/`);
+        socket.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+        const tableBody  = document.getElementById("divergenceTableId");
+        socket.onmessage = function(event) {
+          if (JSON.parse(event.data)?.type === "send_divergence_notification"){
+            $("#divergenceTableId").empty();
+            $("#cardsId").empty();
+              JSON.parse(event.data).instance?.filter(filterItm => filterItm?.interval === currentFilter)?.slice(0,4)?.map((item, index) => {
+                console.log("======",item)
+                $("#cardsId").append(`<div class="col-12 col-xl-3 col-md-6">
+                  <div class="card">
+                    <h5 class="card-title">Latest Notification</h5>
+                    <div style="margin-left:12px">
+                        <p class="card-text">
+                            <span class="exchange"><b>Currency: ${item.exchange.exchange}</b></span><br>
+                            <span class="price"><b>Price: ${item.price}</b></span><br>
+                            ${item.rsi ? `<span class="rsi"><b>RSI:</b> <img style="width:10%;" src="/static/bot_image/img/${item.rsi}.png" alt="${item.rsi} Image"></span><br>` : ''}
+                            ${item.macd_histogram ? `<span class="macd-histogram"><b>MACD + Histogram:</b> <img style="width:10%;" src="/static/bot_image/img/${item.macd_histogram}.png" alt="${item.macd_histogram} Image"></span><br>` : ''}
+                            ${item.obv ? `<span class="obv"><b>OBV:</b> <img style="width:10%;" src="/static/bot_image/img/${item.obv}.png" alt="${item.obv} Image"></span>` : ''}
+                            ${item.cvd ? `<span class="cvd"><b>CVD:</b> <img style="width:10%;" src="/static/bot_image/img/${item.cvd}.png" alt="${item.cvd} Image"></span>` : ''}
+                            ${item.stochastics ? `<span class="stochastics"><b>Stochastics:</b> <img style="width:10%;" src="/static/bot_image/img/${item.stochastics}.png" alt="${item.stochastics} Image"></span><br>` : ''}
+                        </p>
+                    </div>
+                </div>
+                </div>`)
+               })
+            JSON.parse(event.data).instance?.filter(search => search.exchange?.exchange?.toLowerCase()?.includes($("#inputId").val()?.toLowerCase()))?.filter(filterItm => filterItm?.interval === currentFilter)?.slice(0,50)?.map((item, index) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+              <td data-label='#'>${index+1}</td>
+              <td data-label='Currency'>${item.exchange.exchange}</td>
+              <td data-label='Current Price'>${item.price}</td>
+              <td data-label='Time (UTC)'>${dayjs(item.created_at).format("DD MMM YYYY, H:m a")}</td>
+              <td data-label="RSI">${generateImage(item.rsi)}</td>
+              <td data-label="MACD + Histogram">${generateImage(item.macd_histogram)}</td>
+              <td data-label="OBV">${generateImage(item.obv)}</td>
+              <td data-label="CVD">${generateImage(item.cvd)}</td>
+              <td data-label="Stochastics">${generateImage(item.stochastics)}</td>
+              `;
+              tableBody.appendChild(row);
+            })
+          }
+        };
+
+        socket.onclose = function(event) {
+            console.log('WebSocket connection closed:', event.code, event.reason);
+        };
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+    }
+
+    window.onload = () => {
+      websocketConnection();
+    }
+
+    const generateImage = (indicator) => {
+      if (indicator === "BERD" || indicator === "BEHD" || indicator === "BURD" || indicator === "BUHD") {
+          const baseUrl = "/static/bot_image/img/";
+          const imageUrl = `${baseUrl}${indicator}.png`;
+          return `<img src="${imageUrl}" alt="${indicator} Image">`;
+      } else {
+          return "-";
+      }
+  };
+  
+  </script>
+
+</html>

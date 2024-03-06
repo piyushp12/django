@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% load static %}
+<title>{% block title %}Dashboard{% endblock title %}</title>
+
+{% block content %}
+
+<section class="intro">
+  <div class="gradient-custom-1 h-100">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="table-responsive bg-white">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Market</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Crypto Indices</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='crypto' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Forex Market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='forex' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Ind Stock Market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='ind_stock_market' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>US Stock Market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='us_stock_market' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>World Market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='world_market' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Crypto Total Market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='crypto_total_market' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Commodities market</td>
+                    <td>
+                      <a
+                        class="btn btn-primary view-button"
+                        href="{% url 'list_view' model='commodities' %}"
+                        >View</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

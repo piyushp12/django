@@ -1,0 +1,4 @@
+
+USERTYPE = (
+    ("Admin", "Admin"),
+)

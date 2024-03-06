@@ -1,0 +1,408 @@
+{% extends 'base.html' %} {% load static %}
+<title>{% block title %} List{% endblock title %}</title>
+{% block content %}
+
+
+
+
+{% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<form method="post">
+  {% csrf_token %}
+
+  <section class="intro">
+    <div class="gradient-custom-1 h-100">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="row justify-content-between" style="margin:10px;">
+                <div class="col-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                id="exchange"
+                                name="exchange"
+                                required
+                                placeholder="Symbol"
+                                class="form-control"
+                            />
+                            <input
+                                type="text"
+                                id="symbol"
+                                name="symbol"
+                                required
+                                placeholder="Exchange"
+                                class="form-control"
+                            />
+                            <button type="submit" class="btn btn-primary">Add Data</button>
+                        </div>
+                    </form>
+                </div>
+                {% if model == 'crypto' %}
+                <h4 style="background-color: aliceblue; width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">Crypto Indices</h3>
+                {% elif model == 'forex' %}
+                <h4 style="background-color: aliceblue;width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">Forex Market</h3>
+                {% elif model == 'ind_stock_market' %}
+                <h4 style="background-color: aliceblue;width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">Ind Stock Market</h3>
+                {% elif model == 'us_stock_market' %}
+                <h4 style="background-color: aliceblue;width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">US Stock Market</h3>
+                {% elif model == 'world_market' %}
+                <h4 style="background-color: aliceblue;width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">World Market</h4>
+                {% elif model == 'crypto_total_market' %}
+                <h3 style="background-color: aliceblue;width: 25%;  text-align: center; border-radius: 5px; padding: 3px;">Crypto Total Market</h3>
+                {% elif model == 'commodities' %}
+                <h4 style="background-color: aliceblue; width: 24%;text-align: center; border-radius: 5px; padding: 3px;padding-bottom: 3px; margin-bottom: 2px; ">Commodities market</h4>
+]
+                {% endif %}
+                <div class="col-4">
+                    <form method="get">
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="searchInput"
+                                name="search"
+                                placeholder="Search by Symbol"
+                                value="{{ search_query }}"
+                            />
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+
+              <div class="table-responsive bg-white">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Symbol</th>
+                      <th scope="col">Exchange</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if model == 'crypto' %}
+                    {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_crypto_pair' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger view-button" onclick="confirmDelete('{{ stock.id }}')">Delete</button>
+
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %} 
+
+
+                    <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div>
+                    
+                    {% endif %}   {% endif %}
+                  </tbody>
+                  <tbody>
+                    {% if model == 'forex' %} {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_forex' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            class="btn btn-danger view-button"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div>
+                    {% endif %}{% endif %}
+                  </tbody>
+                  <tbody>
+                    {% if model == 'commodities' %} {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_commodities' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            class="btn btn-danger view-button"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %} 
+                                        
+                    <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div>
+
+                    {% endif %}{% endif %}
+                  </tbody>
+                  <tbody>
+                    {% if model == 'ind_stock_market' %} {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_ind_stock_market' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            class="btn btn-danger view-button"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}                     
+                    <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div>
+                    {% endif %}{% endif %}
+                  </tbody>
+                  <tbody>
+                    {% if model == 'us_stock_market' %} {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_us_stock_market' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            class="btn btn-danger view-button"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}              <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div> {% endif %} {% endif %}
+                  </tbody>
+                  <tbody>
+                    {% if model == 'world_market' %} {% if data %} {% for stock in data %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ stock.exchange }}</td>
+                      <td>{{ stock.pair }}</td>
+                      <td>
+                        <form
+                          method="post"
+                          action="{% url 'delete_world_market' stock.id %}"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            class="btn btn-danger view-button"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}                     
+                    <div class="pagination">
+                      <span class="step-links">
+                          {% if data.has_previous %}
+                              <a href="?page=1">&laquo; first</a>
+                              <a href="?page={{ data.previous_page_number }}">previous</a>
+                          {% endif %}
+                  
+                          <span class="current" style="margin: 12px;">
+                              Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                          </span>
+                  
+                          {% if data.has_next %}
+                              <a href="?page={{ data.next_page_number }}">next</a>
+                              <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                          {% endif %}
+                      </span>
+                  </div>
+                    {% endif %} {% endif %}
+                  </tbody>
+                </tbody>
+                <tbody>
+                  {% if model == 'crypto_total_market' %} {% if data %} {% for stock in data %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ stock.exchange }}</td>
+                    <td>{{ stock.pair }}</td>
+                    <td>
+                      <form
+                        method="post"
+                        action="{% url 'delete_crypto_total_market' stock.id %}"
+                      >
+                        {% csrf_token %}
+                        <button
+                          type="submit"
+                          class="btn btn-danger view-button"
+                        >
+                          Delete
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}                     
+                  <div class="pagination">
+                    <span class="step-links">
+                        {% if data.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ data.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current" style="margin: 12px;">
+                            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                        </span>
+                
+                        {% if data.has_next %}
+                            <a href="?page={{ data.next_page_number }}">next</a>
+                            <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+                  {% endif %}{% endif %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.view-button').forEach(button => {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (confirm("Are you sure you want to delete this item?")) {
+            const form = event.target.closest('form');
+            if (form) {
+              form.submit();
+            }
+          }
+        });
+      });
+    });
+  </script>
+  
+  {% endblock %}
+

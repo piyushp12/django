@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section class="vh-100 gradient-custom">
+      <div class="container py-4 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-dark text-white" style="border-radius: 1rem">
+              <div class="card-body p-4 text-center">
+                <div class="mb-md-4 mt-md-3 pb-4">
+                  <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                  <p class="text-white-50 mb-4">
+                    Please enter your login and password!
+                  </p>
+
+                  <form method="post" >
+                    {% csrf_token %}
+                    <!-- Include the CSRF token within the form tag -->
+                    <div class="form-outline form-white mb-3">
+                      <input
+                        
+                        name="email"
+                        placeholder="Enter Your Email"
+                        class="form-control form-control-lg"
+                      />
+                      <label class="form-label" for="email">Email</label>
+                      <div id="emailError" class="text-danger"></div>
+                    </div>
+
+                    <div class="form-outline form-white mb-3 position-relative">
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="form-control form-control-lg"
+                      />
+                      <span
+                      class="toggle-password"
+                      onclick="togglePasswordVisibility()"
+                    ></span>
+                      <label class="form-label" for="password">Password</label>
+                  
+        
+
+                    <p class="small mb-4 pb-lg-2">
+                      <a class="text-white-50" href="{% url 'password_reset' %}">Forgot Password?</a>
+                    </p>
+
+                    <button
+                      class="btn btn-outline-light btn-lg px-5"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+                  </form>
+                  {% if messages %}
+                  <div class="alert alert-danger mt-4">
+                    <ul>
+                      {% for message in messages %}
+                      <li>{{ message }}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+  <style>
+    body {
+      background-image: url("{% static 'img/background_img.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+
+    .form-outline {
+      position: relative;
+    }
+
+  </style>
+  <script>
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("password");
+      var toggleIcon = document.querySelector(".toggle-password");
+  
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+  </script>
+</html>
